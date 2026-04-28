@@ -1,26 +1,31 @@
-pipeline{
+pipeline {
     agent any
-    options {
-        timeout(time: 5, unit: "MINUTES")
-        timestamps()
-    }
+
     stages {
-        stage("make a directory"){
-            steps{
-                sh "mkdir jenkins-test"
+
+        stage('Build') {
+            steps {
+                echo 'Build stage started'
+                sh 'pwd'
+                sh 'ls'
             }
         }
-        stage("add a file"){
-            steps{
-                sh "touch jenkins-test/file1.txt"
+
+        stage('Test') {
+            steps {
+                echo 'Test stage started'
+                sh 'touch testfile.txt'
+                sh 'ls'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploy stage started'
+                sh 'mkdir -p deploy'
+                sh 'mv testfile.txt deploy/'
+                sh 'ls deploy'
             }
         }
     }
-    post {
-        always{
-            archiveArtifacts artifacts: "jenkins-test/*.txt", allowEmptyArchive: true
-        }
-    }
-
-
 }
