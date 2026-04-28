@@ -7,7 +7,6 @@ pipeline {
             steps {
                 echo 'Build stage started'
                 sh 'pwd'
-                sh 'ls'
             }
         }
 
@@ -22,8 +21,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploy stage started'
-                sh 'mkdir -p deploy'
-                sh 'mv testfile.txt deploy/'
+                sh 'mkdir -p deploy && mv testfile.txt deploy/'
                 sh 'ls deploy'
             }
         }
